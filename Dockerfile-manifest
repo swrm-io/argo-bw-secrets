@@ -8,7 +8,7 @@ RUN go mod download
 
 RUN C=musl-gcc CGO_ENABLED=1 go build -trimpath -ldflags '-linkmode external -extldflags "-static -Wl,-unresolved-symbols=ignore-all"' .
 
-FROM debian:latest 
+FROM ubuntu:latest 
 
 RUN mkdir -p /home/argocd/cmp-server/config/
 COPY cmp-manifest.yaml /home/argocd/cmp-server/config/plugin.yaml
