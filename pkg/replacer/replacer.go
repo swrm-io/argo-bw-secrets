@@ -40,17 +40,17 @@ func New(apiURL, identityURL, token string) (*Replacer, error) {
 
 func (r Replacer) Replace(raw string) (string, error) {
 
-	re, err := regexp.Compile(lookupRegex)
+	reobj, err := regexp.Compile(lookupRegex)
 	if err != nil {
 		return "", err
 	}
 
-	if !re.MatchString(raw) {
+	if !reobj.MatchString(raw) {
 		return raw, nil
 	}
 
 	result := strings.Clone(raw)
-	entries := re.FindAllStringSubmatch(raw, -1)
+	entries := reobj.FindAllStringSubmatch(raw, -1)
 
 	for _, entry := range entries {
 		path := entry[0]

@@ -42,7 +42,7 @@ var versionTemplate = `argo-bw-secrets
 var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "Print argo-bw-secrets version",
-	RunE: func(cmd *cobra.Command, args []string) error {
+	RunE: func(cmd *cobra.Command, _ []string) error {
 		build, _ := debug.ReadBuildInfo()
 
 		settings := []string{}
