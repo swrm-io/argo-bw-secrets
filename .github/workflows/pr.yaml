@@ -16,6 +16,12 @@ jobs:
       with:
         go-version: '1.22'
 
+    - name: golangci-lint
+      uses: golangci/golangci-lint-action@v3
+      with:
+        version: v1.56.0
+        args: --timeout 3m --config .golangci.yaml
+
     - name: Test
       env:
         GOENV: ./.goenv
