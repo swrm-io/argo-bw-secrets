@@ -1,0 +1,27 @@
+linters:
+  enable:
+    - errcheck
+    - gosimple
+    - govet
+    - gofmt
+    - ineffassign
+    - staticcheck
+    - unused
+    - cyclop
+    - dupword
+    - varnamelen
+    - usestdlibvars
+    - unparam
+    - revive
+    - prealloc
+    - misspell
+    - gocyclo
+    - funlen
+    - bodyclose
+
+linters-settings:
+  cyclop:
+    max-complexity: 15
+
+run:
+  timeout: 5m

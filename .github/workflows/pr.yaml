@@ -1,0 +1,34 @@
+name: Go
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.22'
+
+    - name: golangci-lint
+      uses: golangci/golangci-lint-action@v3
+      with:
+        version: v1.56.0
+        args: --timeout 3m --config .golangci.yaml
+
+    - name: install musl-tools
+      run: sudo apt install musl-tools -y
+    - name: Test
+      env:
+        GOENV: ./.goenv
+      run: go test -ldflags='-linkmode external -extldflags "-static -Wl,-unresolved-symbols=ignore-all"' -v ./...
+
+    - name: Build
+      env:
+        GOENV: ./.goenv
+      run: go build -ldflags='-linkmode external -extldflags "-static -Wl,-unresolved-symbols=ignore-all"' -v ./...

@@ -31,7 +31,7 @@ var generateCmd = &cobra.Command{
 	Use:          "generate",
 	Short:        "Replace placeholder strings with Bitwarden Secret",
 	SilenceUsage: true,
-	RunE: func(cmd *cobra.Command, args []string) error {
+	RunE: func(_ *cobra.Command, _ []string) error {
 
 		info, err := os.Stdin.Stat()
 		if err != nil {
