@@ -6,7 +6,7 @@ spec:
   init:
     command: [sh, -c]
     args:
-      - helm dependency build
+      - test -f Chart.yaml && helm dependency build
   generate:
     command: [sh, -c]
     args:
