@@ -35,7 +35,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run:
-          gh release upload ${{ github.event.release.tag_name }} ./argo-bw-secrets
+          gh release upload $(git describe --tags --abbrev=0) ./argo-bw-secrets
       
   docker:
     strategy:
