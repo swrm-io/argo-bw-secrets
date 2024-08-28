@@ -29,13 +29,13 @@ jobs:
       - name: Build
         env:
           GOENV: ./.goenv
-        run: go build -ldflags='-linkmode external -extldflags "-static -Wl,-unresolved-symbols=ignore-all"' -v ./...
+        run: go build -ldflags='-linkmode external -extldflags "-static -Wl,-unresolved-symbols=ignore-all"' -v .
 
       - name: upload artifact
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run:
-          ls -alh; gh release upload $(git describe --tags --abbrev=0) ./argo-bw-secrets
+          gh release upload $(git describe --tags --abbrev=0) ./argo-bw-secrets
       
   docker:
     strategy:
