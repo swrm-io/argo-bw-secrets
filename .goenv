@@ -1,0 +1,2 @@
+CC=musl-gcc
+CGO_ENABLED=1

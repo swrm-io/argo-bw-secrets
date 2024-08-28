@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ConfigManagementPlugin
+metadata:
+  name: argo-bw-secrets-helm
+spec:
+  init:
+    command: [sh -c]
+    args:
+      - helm dependency build
+  generate:
+    command: [sh, -c]
+    args:
+      - helm template $ARGOCD_APP_NAME -n $ARGOCD_APP_NAMESPACE ${PARAM_HELM_ARGS} . | argocd-bw-secrets generate
+
+  parameters:
+    static:
+      - name: helm-args
+        title: Helm Arguments
+        tooltip: Extra arguments to pass to Helm
+        required: false
+        itemType: "string"
+        collectionType: "string"
+        string: ""
+
+  preserveFileMode: false
