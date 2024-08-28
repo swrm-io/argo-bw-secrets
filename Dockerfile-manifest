@@ -10,9 +10,10 @@ RUN C=musl-gcc CGO_ENABLED=1 go build -trimpath -ldflags '-linkmode external -ex
 
 FROM ubuntu:latest 
 
+RUN apt-get update && apt install musl-tools ca-certificates -y; apt-get clean
 RUN mkdir -p /home/argocd/cmp-server/config/
+
 COPY cmp-manifest.yaml /home/argocd/cmp-server/config/plugin.yaml
-COPY --from=build /etc/ssl /etc/ssl
 COPY --from=build /workspace/argo-bw-secrets /usr/local/bin/argo-bw-secrets
 
 ENTRYPOINT ["/var/run/argocd/argocd-cmp-server"]
