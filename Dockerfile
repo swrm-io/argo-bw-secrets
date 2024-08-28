@@ -13,8 +13,8 @@ RUN C=musl-gcc CGO_ENABLED=1 go build -trimpath -ldflags '-linkmode external -ex
 FROM debian:latest 
 ARG CMP
 
-RUN mkdir -p /home/argocd/cmp-server/config/plugin.yaml
-COPY $CMP /home/argocd/cmp-server/config/
+RUN mkdir -p /home/argocd/cmp-server/config/
+COPY $CMP /home/argocd/cmp-server/config/plugin.yaml
 COPY --from=build /workspace/argo-bw-secrets /usr/local/bin/argo-bw-secrets
 
 ENTRYPOINT ["/var/run/argocd/argocd-cmp-server"]
