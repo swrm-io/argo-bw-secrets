@@ -22,6 +22,8 @@ jobs:
         version: v1.56.0
         args: --timeout 3m --config .golangci.yaml
 
+    - name: install musl-tools
+      run: apt install musl-tools -y
     - name: Test
       env:
         GOENV: ./.goenv
