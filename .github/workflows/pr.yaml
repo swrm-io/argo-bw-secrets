@@ -17,7 +17,11 @@ jobs:
         go-version: '1.22'
 
     - name: Test
+      env:
+        GOENV: ./.goenv
       run: go test -ldflags='-linkmode external -extldflags "-static -Wl,-unresolved-symbols=ignore-all"' -v ./...
 
     - name: Build
+      env:
+        GOENV: ./.goenv
       run: go build -ldflags='-linkmode external -extldflags "-static -Wl,-unresolved-symbols=ignore-all"' -v ./...
