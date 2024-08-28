@@ -3,7 +3,7 @@ WORKDIR /workspace
 
 COPY . .
 
-RUN apt-get update && apt install musl-tools git -y
+RUN apt-get update && apt install musl-tools git ca-certificates -y
 RUN go mod download
 
 RUN C=musl-gcc CGO_ENABLED=1 go build -trimpath -ldflags '-linkmode external -extldflags "-static -Wl,-unresolved-symbols=ignore-all"' .
@@ -12,6 +12,7 @@ FROM ubuntu:latest
 
 RUN mkdir -p /home/argocd/cmp-server/config/
 COPY cmp-manifest.yaml /home/argocd/cmp-server/config/plugin.yaml
+COPY --from=build /etc/ssl /etc/ssl
 COPY --from=build /workspace/argo-bw-secrets /usr/local/bin/argo-bw-secrets
 
 ENTRYPOINT ["/var/run/argocd/argocd-cmp-server"]

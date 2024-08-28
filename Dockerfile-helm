@@ -4,7 +4,7 @@ ARG HELM_VERSION=v3.15.4
 
 COPY . .
 
-RUN apt-get update && apt install musl-tools git wget -y
+RUN apt-get update && apt install musl-tools git wget ca-certificates -y
 RUN go mod download
 RUN wget https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz; tar -zxvf helm-${HELM_VERSION}-linux-amd64.tar.gz
 
@@ -14,6 +14,7 @@ FROM ubuntu:latest
 
 RUN mkdir -p /home/argocd/cmp-server/config/
 COPY cmp-helm.yaml /home/argocd/cmp-server/config/plugin.yaml
+COPY --from=build /etc/ssl /etc/ssl
 COPY --from=build /workspace/argo-bw-secrets /usr/local/bin/argo-bw-secrets
 COPY --from=build /workspace/linux-amd64/helm /usr/local/bin/helm
 
