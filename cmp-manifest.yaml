@@ -6,7 +6,7 @@ spec:
   generate:
     command: [sh, -c]
     args:
-      - for i in *.yaml; do cat ${i}; echo "---"; done | argocd-bw-secrets generate
+      - for i in *.yaml; do cat ${i}; echo "---"; done | argo-bw-secrets generate
 
   parameters:
 

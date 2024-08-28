@@ -10,7 +10,7 @@ spec:
   generate:
     command: [sh, -c]
     args:
-      - helm template $ARGOCD_APP_NAME -n $ARGOCD_APP_NAMESPACE --repo ${PARAM_HELM_REPO} --version ${PARAM_HELM_CHART_VERSION} ${PARAM_HELM_CHART} ${PARAM_HELM_ARGS} . | argocd-bw-secrets generate
+      - helm template $ARGOCD_APP_NAME -n $ARGOCD_APP_NAMESPACE --repo ${PARAM_HELM_REPO} --version ${PARAM_HELM_CHART_VERSION} ${PARAM_HELM_CHART} ${PARAM_HELM_ARGS} . | argo-bw-secrets generate
 
   parameters:
     static:
