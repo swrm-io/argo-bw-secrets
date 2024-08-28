@@ -14,6 +14,27 @@ spec:
 
   parameters:
     static:
+      - name: helm-repo
+        title: Helm Repo
+        tooltip: Helm repository URL
+        required: true
+        itemType: "string"
+        collectionType: "string"
+        string: ""
+      - name: helm-chart
+        title: Helm Chart
+        tooltip: Helm Chart
+        required: true
+        itemType: "string"
+        collectionType: "string"
+        string: ""
+      - name: helm-chart-version
+        title: Helm Chart Version
+        tooltip: Helm Chart Version
+        required: true
+        itemType: "string"
+        collectionType: "string"
+        string: ""
       - name: helm-args
         title: Helm Arguments
         tooltip: Extra arguments to pass to Helm
