@@ -1,0 +1,20 @@
+FROM golang:1.22 AS build
+WORKDIR /workspace
+ARG HELM_VERSION=v3.15.4
+
+COPY . .
+
+RUN apt-get update && apt install musl-tools git wget -y
+RUN go mod download
+RUN wget https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz; tar -zxvf helm-${HELM_VERSION}-linux-amd64.tar.gz
+
+RUN C=musl-gcc CGO_ENABLED=1 go build -trimpath -ldflags '-linkmode external -extldflags "-static -Wl,-unresolved-symbols=ignore-all"' .
+
+FROM debian:latest 
+
+RUN mkdir -p /home/argocd/cmp-server/config/
+COPY cmp-helm.yaml /home/argocd/cmp-server/config/plugin.yaml
+COPY --from=build /workspace/argo-bw-secrets /usr/local/bin/argo-bw-secrets
+COPY --from=build /workspace/linux-amd64/helm /usr/local/bin/helm
+
+ENTRYPOINT ["/var/run/argocd/argocd-cmp-server"]
