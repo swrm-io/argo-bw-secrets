@@ -11,7 +11,7 @@ RUN wget https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz; tar -zxvf 
 RUN C=musl-gcc CGO_ENABLED=1 go build -trimpath -ldflags '-linkmode external -extldflags "-static -Wl,-unresolved-symbols=ignore-all"' .
 
 FROM ubuntu:latest 
-
+ENV HELM_CACHE_HOME=/tmp
 RUN mkdir -p /home/argocd/cmp-server/config/
 COPY cmp-helm.yaml /home/argocd/cmp-server/config/plugin.yaml
 COPY --from=build /etc/ssl /etc/ssl
