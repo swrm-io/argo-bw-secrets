@@ -8,7 +8,7 @@ RUN apt-get update && apt install musl-tools git wget ca-certificates -y
 RUN go mod download
 RUN wget https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz; tar -zxvf helm-${HELM_VERSION}-linux-amd64.tar.gz
 
-RUN C=musl-gcc CGO_ENABLED=1 go build -trimpath -ldflags '-linkmode external -extldflags "-static -Wl,-unresolved-symbols=ignore-all"' .
+RUN CC=musl-gcc CGO_ENABLED=1 go build -trimpath -ldflags '-linkmode external -extldflags "-static -Wl,-unresolved-symbols=ignore-all"' .
 
 FROM ubuntu:latest 
 ENV HELM_CACHE_HOME=/tmp

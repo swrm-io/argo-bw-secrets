@@ -6,7 +6,7 @@ COPY . .
 RUN apt-get update && apt install musl-tools git ca-certificates -y
 RUN go mod download
 
-RUN C=musl-gcc CGO_ENABLED=1 go build -trimpath -ldflags '-linkmode external -extldflags "-static -Wl,-unresolved-symbols=ignore-all"' .
+RUN CC=musl-gcc CGO_ENABLED=1 go build -trimpath -ldflags '-linkmode external -extldflags "-static -Wl,-unresolved-symbols=ignore-all"' .
 
 FROM ubuntu:latest 
 
